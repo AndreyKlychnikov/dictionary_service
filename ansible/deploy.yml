@@ -20,6 +20,3 @@
         image: "{{ docker_image }}:{{app_image_version}}"
         ports:
           - "127.0.0.1:{{ app_external_port }}:80"
-        env:
-          TELEGRAM_TOKEN: "{{ telegram_token }}"
-          VIDEOS_API_HOST: "{{ videos_api_host }}"
