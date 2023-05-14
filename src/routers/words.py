@@ -1,8 +1,8 @@
 from typing import List
 
 from fastapi import APIRouter
-from dependencies import get_word_info
-from models import Word
+from src.dependencies import get_word_info
+from src.models import Word
 
 
 router = APIRouter(
