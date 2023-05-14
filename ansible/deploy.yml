@@ -1,0 +1,25 @@
+- hosts: stage
+  gather_facts: no
+  tasks:
+    - include: tasks/docker_login.yml
+
+    - name: Pull the new image
+      docker_image:
+        name: "{{ docker_image }}:{{app_image_version}}"
+        source: pull
+      register: pulled_image
+
+    - name: Remove the existing container
+      docker_container:
+        name: dictionary-service
+        state: absent
+
+    - name: Run the container with the new image
+      docker_container:
+        name: dictionary-service
+        image: "{{ docker_image }}:{{app_image_version}}"
+        ports:
+          - "127.0.0.1:{{ app_external_port }}:80"
+        env:
+          TELEGRAM_TOKEN: "{{ telegram_token }}"
+          VIDEOS_API_HOST: "{{ videos_api_host }}"
